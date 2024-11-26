@@ -15,10 +15,14 @@ class CartPageCubit extends BaseCubit<CartPageState> {
           ),
         );
 
-  String get cartTotalPrice => state.addedProducts.length > 1
+  String get cartTotalPriceRound => state.addedProducts.length > 1
       ? ((state.addedProducts.map((e) => e.product.price * e.quantity).toList(growable: false))
           .reduce((a, b) => a + b)).toStringAsFixed(2)
       : '0.0';
+
+  double get cartTotalPriceRaw =>
+      (state.addedProducts.map((e) => e.product.price * e.quantity).toList(growable: false))
+          .reduce((a, b) => a + b);
 
   @override
   void init() {

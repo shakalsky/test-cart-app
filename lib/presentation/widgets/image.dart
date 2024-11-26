@@ -1,4 +1,4 @@
-import 'package:test_products_and_cart/presentation/widgets/import_index.dart';
+import 'package:test_products_and_cart/presentation/widgets/z_import_index.dart';
 
 class AppImage extends StatelessWidget {
   final String? url;

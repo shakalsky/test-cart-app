@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:test_products_and_cart/dependency_injector.dart';
 import 'package:test_products_and_cart/presentation/pages/cart_page/cart_page.dart';
-import 'package:test_products_and_cart/presentation/widgets/import_index.dart';
+import 'package:test_products_and_cart/presentation/widgets/z_import_index.dart';
 
 abstract class DialogsUtil {
   static Future<void> showDialogInfo({

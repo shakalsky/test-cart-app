@@ -95,78 +95,20 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
                                     ),
                                   ),
                                   const SizedBox(height: 4.0),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        '\$',
-                                        style: AppTypography.headline,
-                                      ),
-                                      Text(
-                                        '${state.addedProducts[index].product.price}.',
-                                        style: AppTypography.headline,
-                                      ),
-                                      Text(
-                                        '99',
-                                        style: AppTypography.bodyDefault,
-                                      ),
-                                    ],
-                                  ),
+                                  Price(state.addedProducts[index].product.price),
                                 ],
                               ),
                               Spacer(),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    width: 90,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        AppIconButton(
-                                          onTap: () => cubit.decreaseItemCount(
-                                            state.addedProducts[index],
-                                          ),
-                                          isActive: state.addedProducts[index].quantity > 1,
-                                          borderRound: 30,
-                                          buttonSize: 30,
-                                          icon: Icons.arrow_left_rounded,
-                                          backgroundColor: Colors.transparent,
-                                          iconSize: 30,
-                                          iconColor: AppColors.iconPrimary,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            state.addedProducts[index].quantity.toString(),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                        AppIconButton(
-                                          onTap: () => cubit.increaseItemCount(
-                                            state.addedProducts[index],
-                                          ),
-                                          borderRound: 30,
-                                          buttonSize: 30,
-                                          icon: Icons.arrow_right_rounded,
-                                          backgroundColor: Colors.transparent,
-                                          iconSize: 30,
-                                          iconColor: AppColors.iconPrimary,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 8.0),
-                                  AppIconButton(
-                                    onTap: () => cubit.deleteItem(state.addedProducts[index]),
-                                    borderRound: 30,
-                                    buttonSize: 30,
-                                    icon: Icons.delete,
-                                    backgroundColor: Colors.transparent,
-                                    iconSize: 30,
-                                    iconColor: AppColors.iconPrimary,
-                                  ),
-                                ],
+                              QuantityManipulator(
+                                onIncrease: () => cubit.increaseItemCount(
+                                  state.addedProducts[index],
+                                ),
+                                onDecrease: () => cubit.decreaseItemCount(
+                                  state.addedProducts[index],
+                                ),
+                                isOnDecreaseActive: state.addedProducts[index].quantity > 1,
+                                onDelete: () => cubit.deleteItem(state.addedProducts[index]),
+                                itemsQuantity: state.addedProducts[index].quantity,
                               ),
                             ],
                           ),
@@ -182,35 +124,7 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
                     endIndent: 20.0,
                   ),
                   const SizedBox(height: 12.0),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'СУММА',
-                        style: AppTypography.bodyDefault.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '\$',
-                            style: AppTypography.headline,
-                          ),
-                          Text(
-                            '${cubit.cartTotalPrice}.',
-                            style: AppTypography.headline,
-                          ),
-                          Text(
-                            '99',
-                            style: AppTypography.bodyDefault,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  Price(name: 'СУММА:', cubit.cartTotalPriceRaw),
                   const SizedBox(height: 8.0),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -227,35 +141,7 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
                     ],
                   ),
                   const SizedBox(height: 12.0),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'ВСЕГО:',
-                        style: AppTypography.bodyDefault.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '\$',
-                            style: AppTypography.headline,
-                          ),
-                          Text(
-                            '${cubit.cartTotalPrice}.',
-                            style: AppTypography.headline,
-                          ),
-                          Text(
-                            '99',
-                            style: AppTypography.bodyDefault,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  Price(name: 'ВСЕГО:', cubit.cartTotalPriceRaw),
                   const SizedBox(height: 16.0),
                   AppTextButton(
                     onTap: () {},

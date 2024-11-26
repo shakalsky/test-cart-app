@@ -14,14 +14,11 @@ class ItemDetailsPage extends BasePage {
 }
 
 class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit> {
-  String? selectedPhotoUrl;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
-    selectedPhotoUrl = widget.product.photoUrls?.first;
     cubit.initProduct(widget.product);
     super.initState();
   }
@@ -30,12 +27,6 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
-  }
-
-  void selectMainPhoto(String? url) {
-    setState(() {
-      selectedPhotoUrl = url;
-    });
   }
 
   @override
@@ -68,6 +59,13 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
                           iconColor: Colors.white,
                           iconSize: 25,
                         ),
+                        Expanded(
+                          child: Text(
+                            'Инфо',
+                            textAlign: TextAlign.center,
+                            style: AppTypography.headline,
+                          ),
+                        ),
                         AppIconButton(
                           onTap: () => Navigator.push(
                             context,
@@ -86,71 +84,10 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
                     ),
                   ),
                   // page app bar end region
-                  SizedBox(height: 12.0),
-                  // item photos slider
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFD9E9E0),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 16.0, 20.0),
-                            child: ListView.builder(
-                              itemCount: widget.product.photoUrls?.length ?? 0,
-                              itemBuilder: (_, index) => GestureDetector(
-                                onTap: () => selectMainPhoto(
-                                  widget.product.photoUrls![index],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Container(
-                                    decoration: selectedPhotoUrl == widget.product.photoUrls![index]
-                                        ? BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius: BorderRadius.circular(4),
-                                          )
-                                        : null,
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: AppImage(
-                                      url: widget.product.photoUrls![index],
-                                      isFullRounded: true,
-                                      borderRound: 12.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            width: double.infinity,
-                            height: 300,
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryBackground,
-                            ),
-                            child: AppImage(
-                              url: selectedPhotoUrl,
-                              borderRound: 20,
-                              isFullRounded: false,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: PicsSlider(widget.product.photoUrls),
                   ),
-                  SizedBox(height: 12.0),
-                  // item photos slider end region
                   // item description
                   Align(
                     alignment: const AlignmentDirectional(-1, 0),
@@ -199,21 +136,7 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '${widget.product.price} \$',
-                              style: AppTypography.bodyDefault.copyWith(fontSize: 20.0),
-                            ),
-                            Text(
-                              '  x${state.productsCount}',
-                              style: AppTypography.bodyDefault.copyWith(fontSize: 20.0),
-                            ),
-                          ],
-                        ),
+                        Price(widget.product.price),
                         AppTextButton(
                           onTap: () => DialogsUtil.showDialogProductsCount(
                             context: context,

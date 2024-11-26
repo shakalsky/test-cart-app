@@ -10,3 +10,6 @@ export 'package:test_products_and_cart/presentation/widgets/text_button.dart';
 export 'package:test_products_and_cart/presentation/widgets/tile.dart';
 export 'package:test_products_and_cart/presentation/widgets/icon_button.dart';
 export 'package:test_products_and_cart/presentation/widgets/text.dart';
+export 'package:test_products_and_cart/presentation/widgets/quantity_manipulator.dart';
+export 'package:test_products_and_cart/presentation/widgets/price.dart';
+export 'package:test_products_and_cart/presentation/widgets/pics_slider.dart';

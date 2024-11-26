@@ -1,4 +1,4 @@
-import 'package:test_products_and_cart/presentation/widgets/import_index.dart';
+import 'package:test_products_and_cart/presentation/widgets/z_import_index.dart';
 
 class AppTile extends StatelessWidget {
   final Product product;
@@ -15,7 +15,7 @@ class AppTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.primaryHighlight,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
         padding: const EdgeInsetsDirectional.all(16.0),
