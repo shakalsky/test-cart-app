@@ -1,29 +1,15 @@
 # test_products_and_cart
 
-A new Flutter project.
+Test flutter progect for a products list (cart).
 
 ## Getting Started
+### Requirements:
+- Flutter > 3.0.0 < 3.24.5
+- Java jdk 17
+### Command line:
+- flutter pub get
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/to/state-management-sample).
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Assets
-
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
-
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/to/resolution-aware-images).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter apps](https://flutter.dev/to/internationalization).
+## Screenshots:
+<img src="https://github.com/user-attachments/assets/89ba94f0-e418-468b-a834-e6984ac5a4fe" width="300">
+<img src="https://github.com/user-attachments/assets/6fa014da-c444-4c27-91de-8df93b7b29df" width="300">
+<img src="https://github.com/user-attachments/assets/eb0c1c7d-b0b1-4503-a9c2-6446734581b1" width="300">
