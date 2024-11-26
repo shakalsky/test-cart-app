@@ -8,6 +8,7 @@ class AppIconButton extends StatelessWidget {
   final Color backgroundColor;
   final Color iconColor;
   final Function onTap;
+  final bool isActive;
 
   const AppIconButton({
     super.key,
@@ -18,12 +19,13 @@ class AppIconButton extends StatelessWidget {
     required this.backgroundColor,
     required this.iconColor,
     required this.onTap,
+    this.isActive = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: isActive ? () => onTap() : null,
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -33,7 +35,7 @@ class AppIconButton extends StatelessWidget {
         height: buttonSize,
         child: Icon(
           icon,
-          color: iconColor,
+          color: isActive ? iconColor : Colors.grey,
           size: iconSize,
         ),
       ),

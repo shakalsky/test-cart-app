@@ -1,5 +1,5 @@
-import 'package:test_products_and_cart/data/models/product.dart';
-import 'package:test_products_and_cart/data/shared/shared_cart_cubit.dart';
+import 'package:test_products_and_cart/presentation/shared/shared_cart_cubit.dart';
+import 'package:test_products_and_cart/presentation/models/cart_position.dart';
 import 'package:test_products_and_cart/presentation/state_manager/base_cubit.dart';
 
 part 'cart_page_state.dart';
@@ -16,8 +16,8 @@ class CartPageCubit extends BaseCubit<CartPageState> {
         );
 
   String get cartTotalPrice => state.addedProducts.length > 1
-      ? ((state.addedProducts.map((e) => e.price).toList(growable: false)).reduce((a, b) => a + b))
-          .toStringAsFixed(2)
+      ? ((state.addedProducts.map((e) => e.product.price * e.quantity).toList(growable: false))
+          .reduce((a, b) => a + b)).toStringAsFixed(2)
       : '0.0';
 
   @override
@@ -33,19 +33,17 @@ class CartPageCubit extends BaseCubit<CartPageState> {
         ),
       );
 
-  void increaseItemCount(Product item) {
+  void increaseItemCount(CartPosition item) {
     _selectedProductsSharedCubit.incrementItemCount(item);
     _refreshCart();
   }
 
-  void decreaseItemCount(Product item) {
-    if (state.addedProducts.where((e) => e.name == item.name).length > 1) {
-      _selectedProductsSharedCubit.decrementItemCount(item);
-    }
+  void decreaseItemCount(CartPosition item) {
+    _selectedProductsSharedCubit.decrementItemCount(item);
     _refreshCart();
   }
 
-  void deleteItem(Product item) {
+  void deleteItem(CartPosition item) {
     _selectedProductsSharedCubit.deleteProduct(item);
     _refreshCart();
   }

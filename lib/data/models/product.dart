@@ -29,4 +29,10 @@ class Product {
       photoUrls: (json['images'] as List).cast<String>(),
     );
   }
+
+  @override
+  operator ==(other) => other is Product && other.id == id;
+
+  @override
+  int get hashCode => Object.hash(id, name, price);
 }

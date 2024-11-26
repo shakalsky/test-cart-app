@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:test_products_and_cart/data/network/api_provider.dart';
 import 'package:test_products_and_cart/data/products_repository.dart';
-import 'package:test_products_and_cart/data/shared/shared_cart_cubit.dart';
+import 'package:test_products_and_cart/presentation/shared/shared_cart_cubit.dart';
 import 'package:test_products_and_cart/presentation/pages/cart_page/cart_page_cubit.dart';
 import 'package:test_products_and_cart/presentation/pages/home_page/home_page_cubit.dart';
 import 'package:test_products_and_cart/presentation/pages/item_page/item_page_cubit.dart';

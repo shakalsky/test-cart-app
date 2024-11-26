@@ -1,14 +1,14 @@
 part of 'cart_page_cubit.dart';
 
 class CartPageState {
-  List<Product> addedProducts;
+  List<CartPosition> addedProducts;
 
   CartPageState({
     required this.addedProducts,
   });
 
   CartPageState newState({
-    List<Product>? addedProducts,
+    List<CartPosition>? addedProducts,
   }) {
     return CartPageState(
       addedProducts: addedProducts ?? this.addedProducts,

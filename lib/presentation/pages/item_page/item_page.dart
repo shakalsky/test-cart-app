@@ -49,7 +49,7 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
           child: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 12.0, 16.0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0),
               child: Column(
                 children: [
                   // page app bar
@@ -88,62 +88,68 @@ class _ItemDetailsPageState extends BasePageState<ItemDetailsPage, ItemPageCubit
                   // page app bar end region
                   SizedBox(height: 12.0),
                   // item photos slider
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                    child: Container(
-                      width: double.infinity,
-                      height: 300,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFD9E9E0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 16, 20),
-                              child: ListView.builder(
-                                itemCount: widget.product.photoUrls?.length ?? 0,
-                                itemBuilder: (_, index) => GestureDetector(
-                                  onTap: () => selectMainPhoto(
-                                    widget.product.photoUrls![index],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: AppImage(
-                                        url: widget.product.photoUrls![index],
-                                        isFullRounded: true,
-                                        borderRound: 12,
-                                      ),
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFD9E9E0),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 16.0, 20.0),
+                            child: ListView.builder(
+                              itemCount: widget.product.photoUrls?.length ?? 0,
+                              itemBuilder: (_, index) => GestureDetector(
+                                onTap: () => selectMainPhoto(
+                                  widget.product.photoUrls![index],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Container(
+                                    decoration: selectedPhotoUrl == widget.product.photoUrls![index]
+                                        ? BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius: BorderRadius.circular(4),
+                                          )
+                                        : null,
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: AppImage(
+                                      url: widget.product.photoUrls![index],
+                                      isFullRounded: true,
+                                      borderRound: 12.0,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              width: double.infinity,
-                              height: 300,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primaryBackground,
-                              ),
-                              child: AppImage(
-                                url: selectedPhotoUrl,
-                                borderRound: 20,
-                                isFullRounded: false,
-                              ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                            width: double.infinity,
+                            height: 300,
+                            decoration: const BoxDecoration(
+                              color: AppColors.primaryBackground,
+                            ),
+                            child: AppImage(
+                              url: selectedPhotoUrl,
+                              borderRound: 20,
+                              isFullRounded: false,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
+                  SizedBox(height: 12.0),
                   // item photos slider end region
                   // item description
                   Align(

@@ -66,19 +66,22 @@ class _HomePageState extends BasePageState<HomePage, HomePageCubit> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 12.0),
-                  state.products.isEmpty
-                      ? AppTextButton(
-                          name: 'Загрузить',
-                          height: 40,
-                          borderRound: 10,
-                          backgroundColor: AppColors.primary,
-                          onTap: cubit.getProducts,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        )
-                      : Expanded(
-                          child: GridView.builder(
+                  const SizedBox(height: 12.0),
+                  Expanded(
+                    child: state.products.isEmpty
+                        ? Center(
+                            child: AppTextButton(
+                              name: 'Загрузить',
+                              height: 40,
+                              width: 200,
+                              borderRound: 10,
+                              backgroundColor: AppColors.primary,
+                              onTap: cubit.getProducts,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : GridView.builder(
                             itemCount: state.products.length,
                             padding: const EdgeInsets.only(top: 8.0),
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -100,7 +103,7 @@ class _HomePageState extends BasePageState<HomePage, HomePageCubit> {
                               ),
                             ),
                           ),
-                        ),
+                  ),
                 ],
               ),
             ),
