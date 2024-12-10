@@ -19,15 +19,18 @@ class ItemPageCubit extends BaseCubit<ItemPageState> {
 
   void initProduct(Product product) {
     emit(
-      state.newState(
-        product: product,
-      ),
+      state.newState(product: product),
     );
   }
 
   void addProductsToCart(int productsCount) {
-    _selectedProductsSharedCubit.addProduct(
-      CartPosition(state.product, productsCount),
+    safeAction(
+      action: () async {
+        _selectedProductsSharedCubit.addProduct(
+          CartPosition(state.product, productsCount),
+        );
+      },
+      isOfflineSupported: true,
     );
   }
 }

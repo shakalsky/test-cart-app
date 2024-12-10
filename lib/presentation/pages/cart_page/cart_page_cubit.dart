@@ -20,14 +20,18 @@ class CartPageCubit extends BaseCubit<CartPageState> {
           .reduce((a, b) => a + b)).toStringAsFixed(2)
       : '0.0';
 
-  double get cartTotalPriceRaw =>
-      (state.addedProducts.map((e) => e.product.price * e.quantity).toList(growable: false))
-          .reduce((a, b) => a + b);
+  double get cartTotalPriceRaw => state.addedProducts.isNotEmpty
+      ? (state.addedProducts.map((e) => e.product.price * e.quantity).toList(growable: false))
+          .reduce((a, b) => a + b)
+      : 0.0;
+
+  int get productsCountRaw => state.addedProducts.isNotEmpty
+      ? state.addedProducts.map((e) => e.quantity).toList(growable: false).reduce((a, b) => a + b)
+      : 0;
 
   @override
   void init() {
     super.init();
-
     _refreshCart();
   }
 
@@ -38,17 +42,46 @@ class CartPageCubit extends BaseCubit<CartPageState> {
       );
 
   void increaseItemCount(CartPosition item) {
-    _selectedProductsSharedCubit.incrementItemCount(item);
+    safeAction(
+      action: () async {
+        _selectedProductsSharedCubit.incrementItemCount(item);
+      },
+      isOfflineSupported: true,
+    );
+
     _refreshCart();
   }
 
   void decreaseItemCount(CartPosition item) {
-    _selectedProductsSharedCubit.decrementItemCount(item);
+    safeAction(
+      action: () async {
+        _selectedProductsSharedCubit.decrementItemCount(item);
+      },
+      isOfflineSupported: true,
+    );
+
     _refreshCart();
   }
 
   void deleteItem(CartPosition item) {
-    _selectedProductsSharedCubit.deleteProduct(item);
+    safeAction(
+      action: () async {
+        _selectedProductsSharedCubit.deleteProduct(item);
+      },
+      isOfflineSupported: true,
+    );
+
+    _refreshCart();
+  }
+
+  void deleteCart() {
+    safeAction(
+      action: () async {
+        _selectedProductsSharedCubit.deleteAllProducts();
+      },
+      isOfflineSupported: true,
+    );
+
     _refreshCart();
   }
 }

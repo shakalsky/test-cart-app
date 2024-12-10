@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:test_products_and_cart/data/network/api_provider.dart';
+import 'package:test_products_and_cart/data/network/hive_provider.dart';
 import 'package:test_products_and_cart/data/products_repository.dart';
 import 'package:test_products_and_cart/presentation/shared/shared_cart_cubit.dart';
 import 'package:test_products_and_cart/presentation/pages/cart_page/cart_page_cubit.dart';
@@ -11,30 +12,47 @@ import 'package:get_it/get_it.dart';
 
 GetIt get i => GetIt.instance;
 
-final Dio _dio = Dio();
-final ApiProvider _apiProvider = ApiProvider(dio: _dio);
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void initInjector() {
+Future<void> initInjector() async {
+  i.registerSingleton<GlobalKey<NavigatorState>>(
+    navigatorKey,
+  );
+
+  i.registerSingleton<Dio>(
+    Dio(),
+  );
+
+  i.registerSingleton<ApiProvider>(
+    ApiProvider(dio: i.get()),
+  );
+
+  i.registerSingleton<HiveProvider>(
+    HiveProvider(),
+  );
+  await i.get<HiveProvider>().init();
+
   i.registerSingleton<ProductRepositoryImpl>(
-    ProductRepositoryImpl(apiProvider: _apiProvider),
+    ProductRepositoryImpl(
+      apiProvider: i.get(),
+      hiveProvider: i.get(),
+    ),
   );
 
   i.registerSingleton<SelectedProductsSharedCubit>(
-    SelectedProductsSharedCubit(),
+    SelectedProductsSharedCubit(
+      productRepository: i.get(),
+    ),
   );
 
   i.registerSingleton<ConnectivityClient>(
     ConnectivityClient(),
   );
 
-  i.registerSingleton<GlobalKey<NavigatorState>>(
-    navigatorKey,
-  );
-
   i.registerFactory<HomePageCubit>(
     () => HomePageCubit(
       productRepositoryImpl: i.get(),
+      selectedProductsSharedCubit: i.get(),
     ),
   );
 

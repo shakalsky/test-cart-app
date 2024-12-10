@@ -17,9 +17,10 @@ class BaseCubit<St> extends Cubit<St> {
   @protected
   Future<void> safeAction({
     required Function action,
+    bool isOfflineSupported = false,
     Function(Object err, StackTrace stt)? errorAction,
   }) async {
-    if (!connectivityClient.hasInternetConnection) {
+    if (!isOfflineSupported && !connectivityClient.hasInternetConnection) {
       await connectivityClient.checkConnection();
       if (!connectivityClient.hasInternetConnection) {
         DialogsUtil.showDialogError(

@@ -30,6 +30,28 @@ class Product {
     );
   }
 
+  Map<String, String> toMapObject(int count) => {
+        'id': id.toString(),
+        'name': name,
+        'price': price.toString(),
+        'count': count.toString(),
+        if (photoUrls != null) 'photo_urls': photoUrls!.join(','),
+        if (description != null) 'description': description!,
+      };
+
+  static (Product, int) fromMapObject(Map<dynamic, dynamic> object) {
+    return (
+      Product(
+        id: int.parse(object['id']),
+        name: object['name']!,
+        price: double.parse(object['price']),
+        description: object['description'],
+        photoUrls: object['photo_urls']?.split(','),
+      ),
+      int.parse(object['count']),
+    );
+  }
+
   @override
   operator ==(other) => other is Product && other.id == id;
 

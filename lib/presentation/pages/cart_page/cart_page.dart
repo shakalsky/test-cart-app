@@ -35,7 +35,7 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
           child: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
               child: Column(
                 children: [
                   Padding(
@@ -54,14 +54,25 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
                           iconSize: 25,
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 42, 0),
-                            child: Text(
-                              'Корзина',
+                          child: Text(
+                            'Корзина',
+                            textAlign: TextAlign.center,
+                            style: AppTypography.headline,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              cubit.productsCountRaw.toString(),
                               textAlign: TextAlign.center,
                               style: AppTypography.headline,
                             ),
-                          ),
+                            Text(
+                              ' шт.',
+                              textAlign: TextAlign.center,
+                              style: AppTypography.bodyDefault,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -143,14 +154,36 @@ class _CartPageState extends BasePageState<CartPage, CartPageCubit> {
                   const SizedBox(height: 12.0),
                   Price(name: 'ВСЕГО:', cubit.cartTotalPriceRaw),
                   const SizedBox(height: 16.0),
-                  AppTextButton(
-                    onTap: () {},
-                    name: 'Оформить заказ',
-                    height: 48,
-                    borderRound: 15,
-                    backgroundColor: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  Row(
+                    children: [
+                      AppIconButton(
+                        onTap: () => DialogsUtil.showDialogApprove(
+                            context: context,
+                            title: 'Внимание',
+                            content: 'Вы уверены, что хотите удалить все товары в корзине?',
+                            submitText: 'Да, удалить',
+                            onSubmitTap: cubit.deleteCart,
+                            cancelText: 'Оставить'),
+                        borderRound: 10,
+                        buttonSize: 48,
+                        backgroundColor: AppColors.primary,
+                        icon: Icons.delete_sweep_rounded,
+                        iconColor: AppColors.primaryHighlight,
+                        iconSize: 25,
+                      ),
+                      SizedBox(width: 8.0),
+                      Expanded(
+                        child: AppTextButton(
+                          onTap: () {},
+                          name: 'Оформить заказ',
+                          height: 48,
+                          borderRound: 10,
+                          backgroundColor: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 32.0),
                 ],

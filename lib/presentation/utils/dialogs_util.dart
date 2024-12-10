@@ -83,7 +83,10 @@ abstract class DialogsUtil {
                 child: Text(cancelText),
               ),
               TextButton(
-                onPressed: onSubmitTap,
+                onPressed: () {
+                  onSubmitTap();
+                  Navigator.of(context).pop();
+                },
                 child: Text(submitText),
               ),
             ],
