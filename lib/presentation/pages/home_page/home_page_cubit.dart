@@ -5,10 +5,17 @@ import 'package:test_products_and_cart/presentation/state_manager/base_cubit.dar
 
 part 'home_page_state.dart';
 
+/// Кубит для главной страницы.
+///
+/// Этот класс реализует методы для управления состоянием главной страницы, включая
+/// получение списка продуктов и обновление состояния с новыми данными.
 class HomePageCubit extends BaseCubit<HomePageState> {
   final SelectedProductsSharedCubit _selectedProductsSharedCubit;
   final ProductRepositoryImpl _repository;
 
+  /// Конструктор класса [HomePageCubit].
+  ///
+  /// Принимает [productRepositoryImpl] для взаимодействия с репозиторием продуктов и [selectedProductsSharedCubit] для управления корзиной продуктов.
   HomePageCubit({
     required ProductRepositoryImpl productRepositoryImpl,
     required SelectedProductsSharedCubit selectedProductsSharedCubit,
@@ -26,6 +33,7 @@ class HomePageCubit extends BaseCubit<HomePageState> {
     _selectedProductsSharedCubit.getSavedProducts();
   }
 
+  /// Получает список продуктов и обновляет состояние.
   void getProducts() async {
     safeAction(action: () async {
       final newProducts = await _repository.fetchProductsList();

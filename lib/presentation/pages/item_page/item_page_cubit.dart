@@ -5,9 +5,16 @@ import 'package:test_products_and_cart/presentation/state_manager/base_cubit.dar
 
 part 'item_page_state.dart';
 
+/// Кубит для страницы товара.
+///
+/// Этот класс реализует методы для управления состоянием страницы товара, включая
+/// инициализацию товара и добавление товаров в корзину.
 class ItemPageCubit extends BaseCubit<ItemPageState> {
   final SelectedProductsSharedCubit _selectedProductsSharedCubit;
 
+  /// Конструктор класса [ItemPageCubit].
+  ///
+  /// Принимает [selectedProductsSharedCubit] для управления выбранными продуктами.
   ItemPageCubit({required SelectedProductsSharedCubit selectedProductsSharedCubit})
       : _selectedProductsSharedCubit = selectedProductsSharedCubit,
         super(
@@ -17,12 +24,18 @@ class ItemPageCubit extends BaseCubit<ItemPageState> {
           ),
         );
 
+  /// Инициализирует товар.
+  ///
+  /// Принимает [product] и обновляет состояние с новым товаром.
   void initProduct(Product product) {
     emit(
       state.newState(product: product),
     );
   }
 
+  /// Добавляет товары в корзину.
+  ///
+  /// Принимает [productsCount] - количество добавляемых товаров.
   void addProductsToCart(int productsCount) {
     safeAction(
       action: () async {

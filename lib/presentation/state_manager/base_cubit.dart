@@ -9,11 +9,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'base_page.dart';
 
+/// Базовый кубит.
+///
+/// Этот класс предоставляет базовые методы для работы с состоянием и безопасным выполнением действий.
 class BaseCubit<St> extends Cubit<St> {
   BaseCubit(super.st);
 
   ConnectivityClient connectivityClient = i.get<ConnectivityClient>();
 
+  /// Выполняет безопасное действие с учетом подключения к интернету.
+  ///
+  /// Принимает [action] - действие для выполнения.
+  /// Параметр [isOfflineSupported] указывает, поддерживается ли выполнение действия в оффлайн-режиме.
+  /// [errorAction] - действие при возникновении ошибки (необязательный параметр).
   @protected
   Future<void> safeAction({
     required Function action,
@@ -52,10 +60,12 @@ class BaseCubit<St> extends Cubit<St> {
     }
   }
 
+  /// Инициализирует кубит.
   void init() {
     debugPrint('Init cubit $runtimeType');
   }
 
+  /// Освобождает ресурсы кубита.
   void dispose() async {
     debugPrint('Dispose cubit $runtimeType');
   }
