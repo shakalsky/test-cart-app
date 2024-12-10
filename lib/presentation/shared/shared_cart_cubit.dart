@@ -32,7 +32,10 @@ class SelectedProductsSharedCubit extends Cubit<SelectedProductsState> {
   /// Принимает [product] - позицию товара в корзине.
   void addProduct(CartPosition product) {
     if (state.productPositions.contains(product)) {
-      incrementItemCount(product);
+      incrementItemCount(
+        product,
+        incrementCount: product.quantity,
+      );
     } else {
       _productRepository.saveProduct(product);
       emit(
@@ -63,11 +66,12 @@ class SelectedProductsSharedCubit extends Cubit<SelectedProductsState> {
   /// Увеличивает количество товара в корзине.
   ///
   /// Принимает [productPosition] - позицию товара в корзине.
-  void incrementItemCount(CartPosition productPosition) {
+  void incrementItemCount(CartPosition productPosition, {int? incrementCount}) {
     final int itemIndex = (state.productPositions.indexWhere((p) => p == productPosition));
     final List<CartPosition> newCollection = state.productPositions;
     final CartPosition updatedItem = state.productPositions[itemIndex];
-    updatedItem.quantity++;
+
+    updatedItem.quantity = updatedItem.quantity + (incrementCount ?? 1);
     newCollection[itemIndex] = updatedItem;
 
     _productRepository.saveProduct(updatedItem);
